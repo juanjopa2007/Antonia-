@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Antonia</string>
+    <string name="orb_description">Botón de Antonia. Toca para empezar o terminar de hablar.</string>
+    <string name="state_idle">En reposo</string>
+    <string name="state_listening">Escuchando</string>
+    <string name="state_thinking">Pensando</string>
+    <string name="state_speaking">Hablando</string>
+    <string name="hint_idle">Toca el círculo para hablar</string>
+    <string name="hint_listening">Te escucho… toca para terminar</string>
+    <string name="hint_thinking">Pensando…</string>
+    <string name="hint_speaking">Toca para interrumpirme</string>
+</resources>

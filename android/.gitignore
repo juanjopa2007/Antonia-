@@ -1,0 +1,13 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+*.keystore
+*.jks
+# Clave de depuración pública, necesaria para firmar siempre igual las compilaciones de prueba
+!app/debug.keystore
