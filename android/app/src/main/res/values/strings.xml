@@ -8,6 +8,33 @@
     <string name="state_speaking">Hablando</string>
     <string name="hint_idle">Toca el círculo para hablar</string>
     <string name="hint_listening">Te escucho… toca para terminar</string>
-    <string name="hint_thinking">Pensando…</string>
+    <string name="hint_thinking">Pensando… toca para cancelar</string>
     <string name="hint_speaking">Toca para interrumpirme</string>
+
+    <string name="you_said">Has dicho</string>
+    <string name="antonia_says">Antonia</string>
+
+    <string name="settings_open">Ajustes</string>
+    <string name="settings_title">Ajustes de voz</string>
+    <string name="settings_back">Volver</string>
+    <string name="settings_speed">Velocidad de habla</string>
+    <string name="settings_speed_value">%1$.1fx</string>
+    <string name="settings_voice">Voz</string>
+    <string name="settings_voice_default">Voz predeterminada del sistema</string>
+    <string name="settings_voices_loading">Buscando voces…</string>
+    <string name="settings_voices_none">No hay voces en español instaladas en este móvil. Se usará la voz predeterminada del sistema.</string>
+    <string name="settings_test">Probar voz</string>
+    <string name="settings_stop_test">Parar</string>
+
+    <string name="mic_permission_denied">Necesito el permiso del micrófono para escucharte. Solo se usa mientras tocas el círculo.</string>
+    <string name="open_app_settings">Abrir ajustes del móvil</string>
+
+    <string name="msg_no_speech">No te he oído. Inténtalo de nuevo.</string>
+    <string name="msg_busy">El reconocimiento de voz está ocupado. Espera un momento e inténtalo otra vez.</string>
+    <string name="msg_needs_permission">Falta el permiso del micrófono.</string>
+    <string name="msg_network">El reconocimiento de voz tiene un problema de conexión.</string>
+    <string name="msg_unavailable">Este móvil no tiene un servicio de reconocimiento de voz disponible. Comprueba que la app de Google esté instalada y activada.</string>
+    <string name="msg_speech_failed">No he podido pronunciar la respuesta. Revisa el motor de texto a voz del móvil.</string>
+    <string name="msg_brain_failed">No he podido preparar una respuesta.</string>
+    <string name="msg_generic">Ha ocurrido un error inesperado.</string>
 </resources>

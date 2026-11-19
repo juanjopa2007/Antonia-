@@ -24,3 +24,4 @@ rootProject.name = "Antonia"
 
 include(":app")
 include(":core:ui")
+include(":voice")
