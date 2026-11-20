@@ -54,8 +54,11 @@ class ConversationController(
     private val _ui = MutableStateFlow(ConversationUi())
     val ui: StateFlow<ConversationUi> = _ui.asStateFlow()
 
-    /** Tarea que obtiene y pronuncia la respuesta; nula mientras se espera el texto del usuario. */
+    /** Tarea que obtiene y pronuncia la respuesta. */
     private var job: Job? = null
+
+    /** Verdadero desde que se abre el micrófono hasta que llega el texto final o un fallo. */
+    private var awaitingText = false
 
     fun onOrbTapped() {
         when (_ui.value.orb) {
@@ -80,6 +83,7 @@ class ConversationController(
     fun reset() {
         job?.cancel()
         job = null
+        awaitingText = false
         stt.cancel()
         tts.stop()
         _ui.value = ConversationUi()
@@ -92,6 +96,7 @@ class ConversationController(
             fail(ConversationMessage.RecognizerUnavailable)
             return
         }
+        awaitingText = true
         _ui.value = ConversationUi(orb = OrbState.Listening)
         stt.start(::onSttEvent)
     }
@@ -112,11 +117,12 @@ class ConversationController(
 
     private fun waitingForText(): Boolean {
         val orb = _ui.value.orb
-        return orb == OrbState.Listening || (orb == OrbState.Thinking && job == null)
+        return awaitingText && (orb == OrbState.Listening || orb == OrbState.Thinking)
     }
 
     private fun onFinalText(text: String) {
         if (!waitingForText()) return
+        awaitingText = false
         val clean = text.trim()
         if (clean.isEmpty()) {
             fail(ConversationMessage.NoSpeechHeard)
@@ -167,6 +173,7 @@ class ConversationController(
 
     private fun fail(message: ConversationMessage, keepText: Boolean = false) {
         job = null
+        awaitingText = false
         stt.cancel()
         _ui.update { current ->
             if (keepText) {

@@ -10,7 +10,10 @@ import com.asistente.voice.SttError
 import com.asistente.voice.SttEvent
 import com.asistente.voice.TextToSpeechEngine
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -72,7 +75,9 @@ class ConversationControllerTest {
         val brain: FakeBrain = FakeBrain { "Respuesta a $it" },
         settings: VoiceSettings = VoiceSettings(voiceId = "voz-1", rate = 1.4f),
     ) {
-        val controller = ConversationController(scope.backgroundScope, stt, tts, brain) { settings }
+        // Ámbito propio sobre el planificador del test: advanceUntilIdle() ejecuta sus tareas.
+        private val controllerScope = CoroutineScope(StandardTestDispatcher(scope.testScheduler) + SupervisorJob())
+        val controller = ConversationController(controllerScope, stt, tts, brain) { settings }
         val ui get() = controller.ui.value
     }
 
