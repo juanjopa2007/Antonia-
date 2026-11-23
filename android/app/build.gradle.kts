@@ -67,4 +67,6 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    // org.json real: el de android.jar no funciona en tests de JVM.
+    testImplementation(libs.json)
 }

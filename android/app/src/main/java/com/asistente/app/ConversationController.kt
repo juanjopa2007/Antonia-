@@ -1,5 +1,8 @@
 package com.asistente.app
 
+import com.asistente.app.brain.Brain
+import com.asistente.app.brain.BrainException
+import com.asistente.app.brain.BrainFailure
 import com.asistente.app.settings.VoiceSettings
 import com.asistente.app.settings.toParams
 import com.asistente.core.ui.OrbState
@@ -26,6 +29,10 @@ enum class ConversationMessage {
     RecognizerUnavailable,
     SpeechFailed,
     BrainFailed,
+    BackendNotConfigured,
+    BackendUnauthorized,
+    BackendOffline,
+    BackendError,
     Generic,
 }
 
@@ -151,6 +158,9 @@ class ConversationController(
             brain.respond(userText)
         } catch (e: CancellationException) {
             throw e
+        } catch (e: BrainException) {
+            fail(e.failure.toMessage())
+            return
         } catch (e: Exception) {
             fail(ConversationMessage.BrainFailed)
             return
@@ -169,6 +179,14 @@ class ConversationController(
             }
             SpeakOutcome.Failed -> fail(ConversationMessage.SpeechFailed, keepText = true)
         }
+    }
+
+    private fun BrainFailure.toMessage(): ConversationMessage = when (this) {
+        BrainFailure.NotConfigured -> ConversationMessage.BackendNotConfigured
+        BrainFailure.Unauthorized -> ConversationMessage.BackendUnauthorized
+        BrainFailure.Offline -> ConversationMessage.BackendOffline
+        BrainFailure.Server -> ConversationMessage.BackendError
+        BrainFailure.Unknown -> ConversationMessage.BrainFailed
     }
 
     private fun fail(message: ConversationMessage, keepText: Boolean = false) {

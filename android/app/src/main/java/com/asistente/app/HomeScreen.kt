@@ -43,6 +43,10 @@ private fun ConversationMessage.stringRes(): Int = when (this) {
     ConversationMessage.RecognizerUnavailable -> R.string.msg_unavailable
     ConversationMessage.SpeechFailed -> R.string.msg_speech_failed
     ConversationMessage.BrainFailed -> R.string.msg_brain_failed
+    ConversationMessage.BackendNotConfigured -> R.string.msg_backend_not_configured
+    ConversationMessage.BackendUnauthorized -> R.string.msg_backend_unauthorized
+    ConversationMessage.BackendOffline -> R.string.msg_backend_offline
+    ConversationMessage.BackendError -> R.string.msg_backend_error
     ConversationMessage.Generic -> R.string.msg_generic
 }
 

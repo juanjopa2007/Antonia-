@@ -72,6 +72,9 @@ export async function buildApp(deps: AppDeps): Promise<FastifyInstance> {
 
   app.get('/healthz', async () => ({ ok: true }));
 
+  // Comprobación de dirección y token desde la app, sin llamar a Claude (no consume tokens).
+  app.get('/v1/ping', { onRequest: [authenticate] }, async () => ({ ok: true }));
+
   app.post(
     '/v1/chat',
     {

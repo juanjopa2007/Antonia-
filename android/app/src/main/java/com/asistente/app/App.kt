@@ -27,6 +27,8 @@ fun AppRoot(viewModel: AppViewModel) {
     val settings by viewModel.settings.collectAsStateWithLifecycle()
     val voices by viewModel.voices.collectAsStateWithLifecycle()
     val voicesLoaded by viewModel.voicesLoaded.collectAsStateWithLifecycle()
+    val connection by viewModel.connection.collectAsStateWithLifecycle()
+    val connectionTest by viewModel.connectionTest.collectAsStateWithLifecycle()
 
     var showSettings by rememberSaveable { mutableStateOf(false) }
     var micDenied by remember { mutableStateOf(false) }
@@ -44,16 +46,21 @@ fun AppRoot(viewModel: AppViewModel) {
     }
 
     if (showSettings) {
-        BackHandler { showSettings = false; viewModel.stopTest() }
+        BackHandler { showSettings = false; viewModel.stopTest(); viewModel.clearConnectionTest() }
         SettingsScreen(
             settings = settings,
             voices = voices,
             voicesLoaded = voicesLoaded,
+            connection = connection,
+            connectionTest = connectionTest,
             onRateChanged = viewModel::setRate,
             onVoiceSelected = viewModel::setVoice,
             onTest = viewModel::testVoice,
             onStopTest = viewModel::stopTest,
-            onBack = { showSettings = false; viewModel.stopTest() },
+            onSaveConnection = viewModel::saveConnection,
+            onTestConnection = viewModel::testConnection,
+            onNewConversation = viewModel::newConversation,
+            onBack = { showSettings = false; viewModel.stopTest(); viewModel.clearConnectionTest() },
         )
     } else {
         HomeScreen(

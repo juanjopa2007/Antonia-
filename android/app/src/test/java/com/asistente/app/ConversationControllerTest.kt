@@ -1,5 +1,8 @@
 package com.asistente.app
 
+import com.asistente.app.brain.Brain
+import com.asistente.app.brain.BrainException
+import com.asistente.app.brain.BrainFailure
 import com.asistente.app.settings.VoiceSettings
 import com.asistente.core.ui.OrbState
 import com.asistente.voice.SpanishVoice
@@ -204,6 +207,26 @@ class ConversationControllerTest {
         assertEquals(OrbState.Idle, s.ui.orb)
         assertEquals(ConversationMessage.BrainFailed, s.ui.message)
         assertTrue(s.tts.spoken.isEmpty())
+    }
+
+    @Test
+    fun `los fallos del servidor se traducen a avisos concretos`() = runTest {
+        val cases = mapOf(
+            BrainFailure.NotConfigured to ConversationMessage.BackendNotConfigured,
+            BrainFailure.Unauthorized to ConversationMessage.BackendUnauthorized,
+            BrainFailure.Offline to ConversationMessage.BackendOffline,
+            BrainFailure.Server to ConversationMessage.BackendError,
+            BrainFailure.Unknown to ConversationMessage.BrainFailed,
+        )
+        for ((failure, expected) in cases) {
+            val s = Setup(this, brain = FakeBrain { throw BrainException(failure) })
+            s.controller.onOrbTapped()
+            s.stt.emit(SttEvent.Final("hola"))
+            advanceUntilIdle()
+            assertEquals(failure.name, OrbState.Idle, s.ui.orb)
+            assertEquals(failure.name, expected, s.ui.message)
+            assertTrue(s.tts.spoken.isEmpty())
+        }
     }
 
     @Test

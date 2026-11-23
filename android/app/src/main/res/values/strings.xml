@@ -26,6 +26,22 @@
     <string name="settings_test">Probar voz</string>
     <string name="settings_stop_test">Parar</string>
 
+    <string name="connection_title">Conexión con el servidor</string>
+    <string name="connection_url">Dirección del servidor (https://…)</string>
+    <string name="connection_token">Token de acceso</string>
+    <string name="connection_url_invalid">La dirección debe empezar por https://</string>
+    <string name="connection_save">Guardar</string>
+    <string name="connection_saved">Guardado</string>
+    <string name="connection_test">Probar conexión</string>
+    <string name="connection_testing">Probando…</string>
+    <string name="connection_ok">Conexión correcta.</string>
+    <string name="connection_not_configured">Escribe la dirección y el token.</string>
+    <string name="connection_unauthorized">El servidor responde, pero no acepta ese token.</string>
+    <string name="connection_offline">No se ha podido conectar. Revisa la dirección y tu conexión a internet.</string>
+    <string name="connection_server_error">El servidor ha devuelto un error.</string>
+    <string name="conversation_reset">Empezar conversación nueva</string>
+    <string name="conversation_reset_done">Antonia ha olvidado la conversación actual.</string>
+
     <string name="mic_permission_denied">Necesito el permiso del micrófono para escucharte. Solo se usa mientras tocas el círculo.</string>
     <string name="open_app_settings">Abrir ajustes del móvil</string>
 
@@ -36,5 +52,9 @@
     <string name="msg_unavailable">Este móvil no tiene un servicio de reconocimiento de voz disponible. Comprueba que la app de Google esté instalada y activada.</string>
     <string name="msg_speech_failed">No he podido pronunciar la respuesta. Revisa el motor de texto a voz del móvil.</string>
     <string name="msg_brain_failed">No he podido preparar una respuesta.</string>
+    <string name="msg_backend_not_configured">Falta configurar el servidor. Ve a Ajustes e introduce la dirección y el token.</string>
+    <string name="msg_backend_unauthorized">El servidor no acepta el token. Revísalo en Ajustes.</string>
+    <string name="msg_backend_offline">No me puedo conectar con el servidor. Comprueba tu conexión a internet y la dirección en Ajustes.</string>
+    <string name="msg_backend_error">El servidor ha devuelto un error. Inténtalo de nuevo en un momento.</string>
     <string name="msg_generic">Ha ocurrido un error inesperado.</string>
 </resources>

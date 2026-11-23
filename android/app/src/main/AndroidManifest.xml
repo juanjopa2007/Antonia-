@@ -4,6 +4,9 @@
     <!-- Solo se usa mientras el usuario toca el círculo central; nunca queda escuchando de fondo. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- Para hablar con el servidor propio de Antonia (solo por HTTPS). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:label="@string/app_name"

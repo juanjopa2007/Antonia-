@@ -47,6 +47,20 @@ describe('GET /healthz', () => {
   });
 });
 
+describe('GET /v1/ping', () => {
+  it('exige token y no llama a Claude', async () => {
+    const { app, calls } = await start([]);
+    const none = await app.inject({ method: 'GET', url: '/v1/ping' });
+    const bad = await app.inject({ method: 'GET', url: '/v1/ping', headers: { authorization: 'Bearer incorrecto' } });
+    const ok = await app.inject({ method: 'GET', url: '/v1/ping', headers: auth });
+    expect(none.statusCode).toBe(401);
+    expect(bad.statusCode).toBe(401);
+    expect(ok.statusCode).toBe(200);
+    expect(ok.json()).toEqual({ ok: true });
+    expect(calls).toHaveLength(0);
+  });
+});
+
 describe('POST /v1/chat', () => {
   it('rechaza peticiones sin token o con token incorrecto', async () => {
     const { app, calls } = await start([]);
